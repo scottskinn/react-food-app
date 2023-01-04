@@ -1,0 +1,19 @@
+.search {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+#search-input {
+    padding: 10px 50px;
+}
+
+.search button {
+    background-color: orange;
+    padding: 10px 50px;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 0 1px 3px 0 black;
+    border-radius: 5px;
+    cursor: pointer;
+}
