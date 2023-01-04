@@ -10,6 +10,7 @@
 
 .search button {
     background-color: orange;
+    border-color: orange;
     padding: 10px 50px;
     font-size: 15px;
     font-weight: bold;
@@ -17,3 +18,4 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
