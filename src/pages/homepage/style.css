@@ -1,4 +1,15 @@
 
+h1 {
+    width: 100%
+}
+
+.fav-items{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin: 15px;
+    padding: 5px;
+}
 
 .items {
     display: flex;

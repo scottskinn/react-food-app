@@ -12,7 +12,13 @@ const RecipeItem = (props) => {
                 <img src={image} alt='of recipe' />
             </div>
             <p>{title}</p>
-            <button type='button' onClick={addFavorites} className='favBtn'>Add to favorites</button>
+            <button
+                type='button'
+                onClick={addFavorites}
+                className='favBtn'
+            >
+                Add to favorites
+            </button>
         </div>
     )
 }
