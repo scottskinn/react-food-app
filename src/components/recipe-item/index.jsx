@@ -2,17 +2,17 @@ import './styles.css'
 
 const RecipeItem = (props) => {
 
-    const { id, title, image } = props;
+    const { id, title, image, addFavorites } = props;
 
     console.log(props, 'recipe item props')
 
     return (
         <div key={id} className="recipeItem">
             <div>
-                <img src={image} alt='image of recipe' />
+                <img src={image} alt='of recipe' />
             </div>
             <p>{title}</p>
-            <button className='favBtn'>Add to favorites</button>
+            <button type='button' onClick={addFavorites} className='favBtn'>Add to favorites</button>
         </div>
     )
 }

@@ -10,6 +10,9 @@ const Homepage = () => {
     // save the results from the api
     const [recipes, setRecipes] = useState([])
 
+    // favorites data state
+    const [ favorites, setFavorites] = useState([])
+
     // this gets data from the search props
     const getDataFromSearchComponent = (getData) => {
         // set loading state to true before calling api
@@ -35,6 +38,22 @@ const Homepage = () => {
 
     console.log(loadingState, recipes, 'loading state and recipes')
 
+    const addFavorites = (getCurrentRecipeItem) => {
+        console.log(getCurrentRecipeItem);
+        let favoritesCopy = [...favorites];
+
+        const getIndex = favoritesCopy.findIndex(item => item.id === getCurrentRecipeItem.id)
+        console.log(getIndex)
+        if(getIndex === -1) {
+            favoritesCopy.push(getCurrentRecipeItem)
+            setFavorites(favoritesCopy)
+            // save in local storage
+            localStorage.setItem('favorites', JSON.stringify(favoritesCopy))
+        } else {
+            alert('Item is already in your favorites page')
+        }
+    }
+
     return (
         <div className="homepage">
             <Search getDataFromSearchComponent={getDataFromSearchComponent} />
@@ -47,9 +66,14 @@ const Homepage = () => {
             {/* map through recipes */}
             <div className="items">
                 {
-                    recipes && recipes.length > 0 
+                    recipes && recipes.length > 0
                         ? recipes.map((item) =>
-                            <RecipeItem id={item.id} image={item.image} title={item.title} />
+                            <RecipeItem 
+                                addFavorites={ ()=> addFavorites(item)} 
+                                id={item.id} 
+                                image={item.image} 
+                                title={item.title} 
+                            />
                         ) : null
                 }
             </div>
