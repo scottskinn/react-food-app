@@ -12,7 +12,7 @@ const Search = (props) => {
         const {value} = event.target;
         setInputValue(value)
     }
-    console.log(inputValue)
+    // console.log(inputValue)
 
     const handleSubmit = (event) => {
         event.preventDefault()
