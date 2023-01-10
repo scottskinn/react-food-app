@@ -1,8 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import Search from "../../components/search";
 import RecipeItem from "../../components/recipe-item";
 import './style.css';
 import FavoriteItem from "../../components/favorite-item";
+
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'filterFavorites':
+            console.log(action.type)
+            return {
+                ...state,
+                filterValue: action.value,
+            };
+        default:
+            return state;
+    }
+}
+
+const initialState = {
+    filterValue: ''
+}
 
 const Homepage = () => {
     // loading state
@@ -14,7 +31,11 @@ const Homepage = () => {
     // favorites data state
     const [favorites, setFavorites] = useState([])
 
-    // 
+    // state for api success
+    const [apiSuccessful, setApiSuccessful] = useState(false)
+
+    // use reducer function
+    const [filterState, dispatch] = useReducer(reducer, initialState)
 
     // this gets data from the search props
     const getDataFromSearchComponent = (getData) => {
@@ -31,6 +52,7 @@ const Homepage = () => {
 
                 setLoadingState(false)
                 setRecipes(results)
+                setApiSuccessful(true)
             }
 
             console.log(result)
@@ -70,25 +92,46 @@ const Homepage = () => {
         setFavorites(getFavoritesFromLS)
     }, [])
 
-    console.log(favorites)
+    console.log(filterState)
+
+    // filter favorites
+    const filterFavoritesItems = favorites.filter(item =>
+        item.title.toLowerCase().includes(filterState.filterValue)
+    );
 
 
     return (
         <div className="homepage">
-            <Search getDataFromSearchComponent={getDataFromSearchComponent} />
+            <Search
+                getDataFromSearchComponent={getDataFromSearchComponent}
+                apiSuccessful={apiSuccessful}
+                setApiSuccessful={setApiSuccessful}
+            />
 
             {/* Favorites items */}
-            <div >
+            <div className="favorite-wrapper">
                 <h1>Favorites</h1>
+
+                <div className="searchFav">
+                    <input
+                        onChange={(event) => dispatch({ type: 'filterFavorites', value: event.target.value })}
+                        value={filterState.filterValue}
+                        name="searchFavorites"
+                        placeholder="Search 
+                        Favorites"
+                    />
+                </div>
+
                 <div className="fav-items">
                     {
-                        favorites && favorites.length > 0 ?
-                            favorites.map((item) => (
+                        filterFavoritesItems && filterFavoritesItems.length > 0 ?
+                            filterFavoritesItems.map((item) => (
                                 <FavoriteItem
-                                    deleteFav = { ()=> deleteFav(item.id)}
+                                    deleteFav={() => deleteFav(item.id)}
                                     id={item.id}
                                     image={item.image}
                                     title={item.title}
+                                    key={item.id}
                                 />
                             ))
                             : null
@@ -111,6 +154,7 @@ const Homepage = () => {
                                 id={item.id}
                                 image={item.image}
                                 title={item.title}
+                                key={item.id}
                             />
                         ) : null
                 }

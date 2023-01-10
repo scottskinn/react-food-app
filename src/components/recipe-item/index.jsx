@@ -4,7 +4,7 @@ const RecipeItem = (props) => {
 
     const { id, title, image, addFavorites } = props;
 
-    console.log(props, 'recipe item props')
+    // console.log(props, 'recipe item props')
 
     return (
         <div key={id} className="recipeItem">

@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './style.css'
 
 
 
 const Search = (props) => {
-    const {getDataFromSearchComponent} = props;
+    const {getDataFromSearchComponent, apiSuccessful, setApiSuccessful} = props;
 
     const [inputValue, setInputValue] = useState('')
 
@@ -18,6 +18,13 @@ const Search = (props) => {
         event.preventDefault()
         getDataFromSearchComponent(inputValue)
     }
+
+    useEffect(() => {
+        if(apiSuccessful) {
+            setInputValue('')
+            setApiSuccessful(false)
+        }
+    },[apiSuccessful])
 
     return (
         <form onSubmit={handleSubmit} className="search">
