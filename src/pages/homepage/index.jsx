@@ -114,10 +114,12 @@ const Homepage = () => {
 
                 <div className="searchFav">
                     <input
+                        className="fav-input"
+                        
                         onChange={(event) => dispatch({ type: 'filterFavorites', value: event.target.value })}
                         value={filterState.filterValue}
                         name="searchFavorites"
-                        placeholder="Search 
+                        placeholder="🔎 Search 
                         Favorites"
                     />
                 </div>
@@ -125,7 +127,7 @@ const Homepage = () => {
                 <div className="fav-items">
                     {
                         filterFavoritesItems && filterFavoritesItems.length > 0 ?
-                            filterFavoritesItems.map((item) => (
+                            filterFavoritesItems.map?.((item) => (
                                 <FavoriteItem
                                     deleteFav={() => deleteFav(item.id)}
                                     id={item.id}

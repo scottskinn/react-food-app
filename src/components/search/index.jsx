@@ -32,7 +32,7 @@ const Search = (props) => {
                 name='search' 
                 value={inputValue} 
                 onChange={handleInputValue} 
-                placeholder="Search Recipes" 
+                placeholder="🔎 Search Recipes" 
                 id='search-input' 
             />
             <button type="submit">Search</button>
